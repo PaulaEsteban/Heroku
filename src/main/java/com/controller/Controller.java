@@ -17,6 +17,10 @@ public class Controller {
   public String servicioWebEjemplo2(HttpServletResponse response,
       @RequestParam(name="json", required=true) String json) throws Throwable {
     
+	  
+	  
+	  
+	  
     return "yes";
   }
 }

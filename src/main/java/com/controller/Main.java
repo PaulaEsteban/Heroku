@@ -1,10 +1,7 @@
 package com.controller;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -27,11 +24,11 @@ public class Main {
   }
   
   @Scope("request")
-  @RequestMapping("/url1")
+  @RequestMapping("/analyzer")
   @ResponseBody
   public String servicioWebEjemplo1(HttpServletResponse response,
-      @RequestParam(name="json", required=true) String json) throws Throwable {
+      @RequestParam(name="texto", required=true) String texto) throws Throwable {
     
-    return "yes";
+    return texto;
   }
 }
