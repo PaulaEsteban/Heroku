@@ -28,7 +28,7 @@ public class Main {
   @ResponseBody
   public String servicioWebEjemplo1(HttpServletResponse response,
       @RequestParam(name="texto", required=true) String texto) throws Throwable {
-    
+    //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa" ASI ES COMO SE HACE LA LLAMADA
     return texto;
   }
 }
