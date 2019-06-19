@@ -27,9 +27,12 @@ public class Main {
   @RequestMapping("/analyzer/checkRules")
   @ResponseBody
   public String servicioWebEjemplo1(HttpServletResponse response,
-      @RequestParam(name="texto", required=true) String texto,@RequestParam(name="regla", required=true) int numero ) throws Throwable {
+      @RequestParam(name="texto", required=true) String texto,@RequestParam(name="regla", required=true) String numero ) throws Throwable {
     //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa" ASI ES COMO SE HACE LA LLAMADA
     //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa"&regla="1" PARA MANDAR MÁS DE UN 1 
+	  
+	  
+	  
 	  return texto;
   }
 }
