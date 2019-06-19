@@ -27,7 +27,7 @@ public class Main {
   @RequestMapping("/analyzer")
   @ResponseBody
   public String servicioWebEjemplo1(HttpServletResponse response,
-      @RequestParam(name="texto", required=true) String texto) throws Throwable {
+      @RequestParam(name="texto", required=true) String texto,@RequestParam(name="regla", required=true) String numero ) throws Throwable {
     //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa" ASI ES COMO SE HACE LA LLAMADA
     return texto;
   }
