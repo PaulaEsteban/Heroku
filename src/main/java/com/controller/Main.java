@@ -24,7 +24,7 @@ public class Main {
   }
   
   @Scope("request")
-  @RequestMapping("/analyzer/checkRules/{texto}/{regla}")
+  @RequestMapping("/analyzer/checkRules")
   @ResponseBody
   public String servicioWebEjemplo1(HttpServletResponse response,
       @RequestParam(name="texto", required=true) String texto,@RequestParam(name="regla", required=true) int numero ) throws Throwable {
