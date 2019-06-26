@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.http.HttpHeaders;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.analizador.Analizador;
@@ -61,9 +65,10 @@ public class Main {
 		return listaResultados;
 	}
 	@Scope("request")
-	@RequestMapping("/rules")
+	//@RequestMapping("/rules")
+	@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
-	public List<String> reglas(HttpServletResponse response, @RequestParam(name="id", required=false) String id) throws Throwable {
+	public List<String> reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
 		List<String> listaReglas= new ArrayList<String>();
 		Gson gson = new Gson();
 		if(id.equals("1")){
@@ -85,6 +90,33 @@ public class Main {
 		}
 		return listaReglas;
 	}
+	@Scope("request")
+	@RequestMapping("/rules")
+	//@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
+	@ResponseBody
+	public List<String> reglas(HttpServletResponse response) throws IOException {
+		List<String> listaReglas= new ArrayList<String>();
+		Gson gson = new Gson();
+
+		Rule pasiva= new Rule();
+		pasiva.setId(1);
+		pasiva.setName("Regla - Forma Pasiva");
+		pasiva.setDescription("No se permite el uso de la forma pasiva");
+		pasiva.setReason(null);
+		String pasivaString = gson.toJson(pasiva);
+		listaReglas.add(pasivaString);
+
+		Rule sinSujeto= new Rule();
+		sinSujeto.setId(2);
+		sinSujeto.setName("Regla - Sujeto en la oraci\u00f3n");
+		sinSujeto.setDescription("Las oraciones deben tener sujeto");
+		sinSujeto.setReason(null);
+		String sinSujetoString = gson.toJson(sinSujeto);
+		listaReglas.add(sinSujetoString);
+
+		return listaReglas;
+	}
+
 
 
 }

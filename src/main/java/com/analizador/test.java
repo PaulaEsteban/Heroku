@@ -61,7 +61,7 @@ public class test {
 	   //--------------------------------------------------------------------------------------------------------------
 	      @Test
 	    public void Test_1() throws Throwable  {//Verificado    
-	    	  String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
+//	    	 String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
 	    	 Main pruebas = new Main ();
 	    	 List<String> pingresponse =pruebas.reglas(null);
 //	    	 String [] sol =pingresponse.split(":");
