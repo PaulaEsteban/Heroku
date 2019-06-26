@@ -21,10 +21,10 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
-//	@RequestMapping("/")
-//	String index() {
-//		return "index";
-//	}
+	@RequestMapping("/")
+	String index() {
+		return "index";
+	}
 
 	@Scope("request")
 	@RequestMapping("/checkRules/1")
@@ -33,5 +33,13 @@ public class Main {
 			@RequestParam(name="texto", required=true) String texto) throws Throwable {
 		Analizador analyzer=new Analizador(texto);
 		return analyzer.reglaPasiva(texto);
+	}
+	@Scope("request")
+	@RequestMapping("/checkRules/2")
+	@ResponseBody
+	public String comprobarSinSujeto(HttpServletResponse response,
+			@RequestParam(name="texto", required=true) String texto) throws Throwable {
+		Analizador analyzer=new Analizador(texto);
+		return analyzer.reglaSinSujeto(texto);
 	}
 }

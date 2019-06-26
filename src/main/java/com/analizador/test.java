@@ -64,7 +64,7 @@ public class test {
 	    	  String texto="Se vende casa.";
 	    	 Main pruebas = new Main ();
 	    	 String pingresponse =pruebas.comprobarPasiva(null, texto);
-	    	 String [] sol =pingresponse.split(",");
+	    	 String [] sol =pingresponse.split(":");
 	    	 
 	    	 System.out.println(sol[sol.length-1]);
 	    }   
