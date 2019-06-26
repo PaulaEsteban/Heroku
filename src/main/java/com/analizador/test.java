@@ -61,11 +61,11 @@ public class test {
 	   //--------------------------------------------------------------------------------------------------------------
 	      @Test
 	    public void Test_1() throws Throwable  {//Verificado    
-	    	  String texto="Se vende casa.";
+	    	  String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
 	    	 Main pruebas = new Main ();
-	    	 String pingresponse =pruebas.comprobarPasiva(null, texto);
-	    	 String [] sol =pingresponse.split(":");
-	    	 
-	    	 System.out.println(sol[sol.length-1]);
+	    	 List<String> pingresponse =pruebas.reglas(null);
+//	    	 String [] sol =pingresponse.split(":");
+	    	 System.out.println(pingresponse);
+//	    	 System.out.println(sol[sol.length-1]);
 	    }   
  }

@@ -52,4 +52,5 @@ public class Rule {
 	public void setPass(boolean pass) {
 		this.pass = pass;
 	}
+	
 }

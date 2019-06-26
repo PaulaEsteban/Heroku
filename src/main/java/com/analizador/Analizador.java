@@ -18,7 +18,7 @@ public class Analizador {
 	public Analizador(String texto){
 		frases= new ArrayList<String>();
 		String elemento="";
-		for (int i = 1; i <texto.length (); i++) {
+		for (int i = 0; i <texto.length (); i++) {
 			if(texto.charAt(i)!='.'){
 				elemento+=texto.charAt(i);
 			}else{
@@ -237,7 +237,7 @@ public class Analizador {
 		}
 		Rule regla=new Rule();
 		regla.setId(2);
-		regla.setName("Regla - Sujeto en la oraci�n");
+		regla.setName("Regla - Sujeto en la oraci\u00f3n");
 		regla.setDescription("Las oraciones deben tener sujeto");
 		if(!frasesSinSujeto.isEmpty()){
 			regla.setPass(false);
@@ -260,10 +260,10 @@ public class Analizador {
 		Analizador a= new Analizador(texto);
 
 		//System.out.println(a.reglaPasiva(texto));
-		String ruleJson=a.reglaPasiva(texto);
+//		String ruleJson=a.reglaPasiva(texto);
+//		
+//		System.out.println(ruleJson);
 		
-		System.out.println(ruleJson);
-
 
 	}
 }
