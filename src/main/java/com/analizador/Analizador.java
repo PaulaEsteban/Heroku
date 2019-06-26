@@ -15,7 +15,7 @@ public class Analizador {
 	public Analizador(String texto){
 		frases= new ArrayList<String>();
 		String elemento="";
-		for (int i = 0; i <texto.length (); i++) {
+		for (int i = 1; i <texto.length (); i++) {
 			if(texto.charAt(i)!='.'){
 				elemento+=texto.charAt(i);
 			}else{
@@ -252,15 +252,15 @@ public class Analizador {
 		return jsonInString;
 
 	}
-	public static void main(String[] args) throws IOException, ParseException{
-		String texto="Se vende casa. Mi nombre es Paula. Es alta. Hay mucha humedad. Mi abuelo fue llevado al hospital. La fecha l�mite es el lunes.";
-		Analizador a= new Analizador(texto);
-
-		System.out.println(a.reglaSinSujeto(texto));
-
-
-
-	}
+//	public static void main(String[] args) throws IOException, ParseException{
+//		String texto="Se vende casa. Mi nombre es Paula. Es alta. Hay mucha humedad. Mi abuelo fue llevado al hospital. La fecha l�mite es el lunes.";
+//		Analizador a= new Analizador(texto);
+//
+//		System.out.println(a.reglaSinSujeto(texto));
+//
+//
+//
+//	}
 }
 
 
