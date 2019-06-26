@@ -63,23 +63,28 @@ public class Main {
 	@Scope("request")
 	@RequestMapping("/rules")
 	@ResponseBody
-	public List<String> reglas(HttpServletResponse response) throws Throwable {
-		Rule pasiva= new Rule();
-		pasiva.setId(1);
-		pasiva.setName("Regla - Forma Pasiva");
-		pasiva.setDescription("No se permite el uso de la forma pasiva");
-		pasiva.setReason(null);
-		Gson gson = new Gson();
-		String pasivaString = gson.toJson(pasiva);
-		Rule sinSujeto= new Rule();
-		sinSujeto.setId(1);
-		sinSujeto.setName("Regla - Sujeto en la oraci\u00f3n");
-		sinSujeto.setDescription("Las oraciones deben tener sujeto");
-		sinSujeto.setReason(null);
-		String sinSujetoString = gson.toJson(sinSujeto);
+	public List<String> reglas(HttpServletResponse response, @RequestParam(name="id", required=false) String id) throws Throwable {
 		List<String> listaReglas= new ArrayList<String>();
-		listaReglas.add(pasivaString);
-		listaReglas.add(sinSujetoString);
+		Gson gson = new Gson();
+		if(id.equals("1")){
+			Rule pasiva= new Rule();
+			pasiva.setId(1);
+			pasiva.setName("Regla - Forma Pasiva");
+			pasiva.setDescription("No se permite el uso de la forma pasiva");
+			pasiva.setReason(null);
+			String pasivaString = gson.toJson(pasiva);
+			listaReglas.add(pasivaString);
+		}else if(id.equals("2")){
+			Rule sinSujeto= new Rule();
+			sinSujeto.setId(2);
+			sinSujeto.setName("Regla - Sujeto en la oraci\u00f3n");
+			sinSujeto.setDescription("Las oraciones deben tener sujeto");
+			sinSujeto.setReason(null);
+			String sinSujetoString = gson.toJson(sinSujeto);
+			listaReglas.add(sinSujetoString);
+		}
 		return listaReglas;
 	}
+
+
 }
