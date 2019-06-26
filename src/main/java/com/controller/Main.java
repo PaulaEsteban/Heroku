@@ -29,15 +29,16 @@ public class Main {
 	@Scope("request")
 	@RequestMapping("/checkRules/1")
 	@ResponseBody
-	public ResponseEntity<String> comprobarPasiva(HttpServletResponse response,
+	public String comprobarPasiva(HttpServletResponse response,
 			@RequestParam(name="texto", required=true) String texto) throws Throwable {
 		//https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa" ASI ES COMO SE HACE LA LLAMADA
 		//https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa"&regla="1" PARA MANDAR MÁS DE UN 1 
 		Analizador analyzer=new Analizador(texto);
-		String ruleJson= analyzer.reglaPasiva(texto);	
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "application/json;charset=UTF-8");
-		return new ResponseEntity<>(ruleJson, headers, HttpStatus.OK);
-		
+		String ruleJSON= analyzer.reglaPasiva(texto);	
+		System.out.println(ruleJSON);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Content-Type", "application/json;charset=UTF-8");
+//		return new ResponseEntity<>(ruleJson, headers, HttpStatus.OK);
+		return texto;
 	}
 }

@@ -7,6 +7,9 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.google.gson.Gson;
 
@@ -252,15 +255,17 @@ public class Analizador {
 		return jsonInString;
 
 	}
-//	public static void main(String[] args) throws IOException, ParseException{
-//		String texto="Se vende casa. Mi nombre es Paula. Es alta. Hay mucha humedad. Mi abuelo fue llevado al hospital. La fecha l�mite es el lunes.";
-//		Analizador a= new Analizador(texto);
-//
-//		System.out.println(a.reglaSinSujeto(texto));
-//
-//
-//
-//	}
+	public static void main(String[] args) throws IOException, ParseException{
+		String texto="Mi abuelo fue llevado al hospital. Mi abuelo ha sido llevado al hospital.  La fecha límite es el lunes.";
+		Analizador a= new Analizador(texto);
+
+		//System.out.println(a.reglaPasiva(texto));
+		String ruleJson=a.reglaPasiva(texto);
+		
+		System.out.println(ruleJson);
+
+
+	}
 }
 
 
