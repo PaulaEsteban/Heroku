@@ -35,10 +35,10 @@ public class Main {
 		//https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa"&regla="1" PARA MANDAR MÁS DE UN 1 
 		Analizador analyzer=new Analizador(texto);
 		String ruleJSON= analyzer.reglaPasiva(texto);	
-		System.out.println(ruleJSON);
+		//System.out.println(ruleJSON);
 //		HttpHeaders headers = new HttpHeaders();
 //		headers.add("Content-Type", "application/json;charset=UTF-8");
 //		return new ResponseEntity<>(ruleJson, headers, HttpStatus.OK);
-		return texto;
+		return ruleJSON;
 	}
 }
