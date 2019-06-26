@@ -63,7 +63,7 @@ public class test {
 	    public void Test_1() throws Throwable  {//Verificado    
 //	    	 String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
 	    	 Main pruebas = new Main ();
-	    	 List<String> pingresponse =pruebas.reglas(null);
+	    	 List<String> pingresponse =pruebas.reglaConcreta(null,"1");
 //	    	 String [] sol =pingresponse.split(":");
 	    	 System.out.println(pingresponse);
 //	    	 System.out.println(sol[sol.length-1]);

@@ -68,8 +68,8 @@ public class Main {
 	//@RequestMapping("/rules")
 	@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
-	public List<String> reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
-		List<String> listaReglas= new ArrayList<String>();
+	public String reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") String id) throws IOException {
+		String regla="";// new ArrayList<String>();
 		Gson gson = new Gson();
 		if(id.equals("1")){
 			Rule pasiva= new Rule();
@@ -77,18 +77,16 @@ public class Main {
 			pasiva.setName("Regla - Forma Pasiva");
 			pasiva.setDescription("No se permite el uso de la forma pasiva");
 			pasiva.setReason(null);
-			String pasivaString = gson.toJson(pasiva);
-			listaReglas.add(pasivaString);
+			regla = gson.toJson(pasiva);
 		}else if(id.equals("2")){
 			Rule sinSujeto= new Rule();
 			sinSujeto.setId(2);
 			sinSujeto.setName("Regla - Sujeto en la oraci\u00f3n");
 			sinSujeto.setDescription("Las oraciones deben tener sujeto");
 			sinSujeto.setReason(null);
-			String sinSujetoString = gson.toJson(sinSujeto);
-			listaReglas.add(sinSujetoString);
+			regla = gson.toJson(sinSujeto);
 		}
-		return listaReglas;
+		return regla;
 	}
 	@Scope("request")
 	@RequestMapping("/rules")
