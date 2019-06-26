@@ -1,7 +1,6 @@
 package com.controller;
 
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.analizador.Analizador;
 
 @Controller
 @SpringBootApplication
@@ -24,15 +24,14 @@ public class Main {
   }
   
   @Scope("request")
-  @RequestMapping("/analyzer/checkRules")
+  @RequestMapping("/checkRules/1")
   @ResponseBody
-  public String servicioWebEjemplo1(HttpServletResponse response,
-      @RequestParam(name="texto", required=true) String texto,@RequestParam(name="regla", required=true) String numero ) throws Throwable {
+  public String comprobarPasiva(HttpServletResponse response,
+      @RequestParam(name="texto", required=true) String texto) throws Throwable {
     //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa" ASI ES COMO SE HACE LA LLAMADA
     //https://analizadorlecturafacil.herokuapp.com/analyzer?texto="holaaa"&regla="1" PARA MANDAR MÁS DE UN 1 
-	  
-	  
-	  
-	  return texto;
+	  Analizador analyzer=new Analizador(texto);
+	  String resultado= analyzer.reglaPasiva(texto);	  
+	  return resultado;
   }
 }
