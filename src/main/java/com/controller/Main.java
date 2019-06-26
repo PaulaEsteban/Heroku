@@ -21,10 +21,10 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
-	@RequestMapping("/")
-	String index() {
-		return "index";
-	}
+//	@RequestMapping("/")
+//	String index() {
+//		return "index";
+//	}
 
 	@Scope("request")
 	@RequestMapping("/checkRules/1")

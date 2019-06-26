@@ -255,17 +255,17 @@ public class Analizador {
 		return jsonInString;
 
 	}
-//	public static void main(String[] args) throws IOException, ParseException{
-//		String texto="Se vende casa.";
-//		Analizador a= new Analizador(texto);
-//
-//		//System.out.println(a.reglaPasiva(texto));
-//		String ruleJson=a.reglaPasiva(texto);
-//		
-//		System.out.println(ruleJson);
-//
-//
-//	}
+	public static void main(String[] args) throws IOException, ParseException{
+		String texto="Se vende casa. Mi abuelo fue llevado al hospital. Los testimonios han sido recogidos.";
+		Analizador a= new Analizador(texto);
+
+		//System.out.println(a.reglaPasiva(texto));
+		String ruleJson=a.reglaPasiva(texto);
+		
+		System.out.println(ruleJson);
+
+
+	}
 }
 
 
