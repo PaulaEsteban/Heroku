@@ -68,17 +68,17 @@ public class Main {
 	//@RequestMapping("/rules")
 	@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
-	public String reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") String id) throws IOException {
+	public String reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
 		String regla="";// new ArrayList<String>();
 		Gson gson = new Gson();
-		if(id.equals("1")){
+		if(id==1){
 			Rule pasiva= new Rule();
 			pasiva.setId(1);
 			pasiva.setName("Regla - Forma Pasiva");
 			pasiva.setDescription("No se permite el uso de la forma pasiva");
 			pasiva.setReason(null);
 			regla = gson.toJson(pasiva);
-		}else if(id.equals("2")){
+		}else if(id==2){
 			Rule sinSujeto= new Rule();
 			sinSujeto.setId(2);
 			sinSujeto.setName("Regla - Sujeto en la oraci\u00f3n");
