@@ -37,8 +37,6 @@ public class Main {
 		String ruleJson= analyzer.reglaPasiva(texto);	
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json;charset=UTF-8");
-
-
 		return new ResponseEntity<>(ruleJson, headers, HttpStatus.OK);
 		
 	}
