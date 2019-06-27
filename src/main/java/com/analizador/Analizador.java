@@ -170,7 +170,9 @@ public class Analizador {
 	}
 	public String reglaPasiva(String texto) throws IOException, ParseException{
 		List<Integer> resultado=pasiva(texto);
+		System.out.println("pasiva:"+resultado);
 		List<Integer> resultadoaux=refleja(texto);
+		System.out.println("refleja:"+resultadoaux);
 		for(int i=0;i<resultadoaux.size();i++){
 			resultado.add(resultadoaux.get(i));
 		}
@@ -179,6 +181,7 @@ public class Analizador {
 		regla.setName("Regla - Forma Pasiva");
 		regla.setDescription("No se permite el uso de la forma pasiva");
 		if(!resultado.isEmpty()){
+			System.out.println("resultado no vacio");
 			regla.setPass(false);
 			String reason="El documento tiene la siguientes frases en forma pasiva: ";
 			List<String> frases= getFrases();
@@ -188,6 +191,9 @@ public class Analizador {
 			}
 			reason+=frasesPasivas.toString();
 			regla.setReason(reason);
+		}
+		else{
+			System.out.println("resultado vacio");
 		}
 		Gson gson = new Gson();
 		String jsonInString = gson.toJson(regla);
