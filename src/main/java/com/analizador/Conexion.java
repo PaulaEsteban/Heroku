@@ -18,11 +18,8 @@ public class Conexion {
 	private String contenido;
 	private String texto;
 	private String lang = "es";
-	//System.out.print("Output format (xml,json,conll,naf): ");
 	private String out = "json";
-	//System.out.print("TextServer Username: ");
 	private String user = "paulaesteban";
-	//System.out.print("TextServer Password: ");
 	private String pwd = "TFGPaula2019!";
 
 	public Conexion(String texto, String servicio) throws IOException {

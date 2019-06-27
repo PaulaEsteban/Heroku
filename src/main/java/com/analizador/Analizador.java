@@ -28,7 +28,6 @@ public class Analizador {
 				elemento="";
 			}
 		}
-		System.out.println("lista:"+frases);
 	}
 	public List<String> getFrases() {
 		return frases;
@@ -57,7 +56,7 @@ public class Analizador {
 			}
 			verbos.add(verbosI);
 		}
-
+		
 		for(int i=0; i<verbos.size(); i++){
 			List<JSONObject> verbosI=verbos.get(i);
 			if(contadorVerbos[i]==2){//Podr�a ser una pasiva tenemos que comprabar si los verbos que hay es un verbo ser y un participio
@@ -73,7 +72,7 @@ public class Analizador {
 					pasivas.add(i);
 				}else{//Aqui podr�a estar el caso de ser una pasiva del caso de nverbos=2 pero que algo m�s se haya etiquetado como verbo
 					boolean encontrarSer=false;
-					while(!encontrarSer){//Mientras no se encuentre vamos eliminando verbos de la lista que esten por delante del haber
+					while(!encontrarSer & !verbosI.isEmpty()){//Mientras no se encuentre vamos eliminando verbos de la lista que esten por delante del haber
 						if(verbosI.get(0).get("lemma").equals("ser")&&verbosI.get(0).get("type").equals("semiauxiliary")){
 							encontrarSer=true;
 						}else{
@@ -120,11 +119,8 @@ public class Analizador {
 		List<Integer> reflejas = new ArrayList<Integer>();
 		Conexion conexionPoS= new Conexion(texto, "tagger");
 		Conexion conexionDependencias= new Conexion(texto,"dependencies");
-		System.out.println("contenido:"+conexionPoS.getContenido());
 		TratarJSON tratarPoS = new TratarJSON(conexionPoS.getContenido());
-		//		System.out.println("pos 1: "+tratar.tratarJSONPoS().get(3));
 		int tamanyo=tratarPoS.tratarJSONPoS().size();
-		//System.out.println(tamanyo);
 		for(int j=0; j<tamanyo;j++){
 			JSONArray frase = tratarPoS.tratarJSONPoS().get(j);
 			JSONObject verbo=new JSONObject();
@@ -136,7 +132,6 @@ public class Analizador {
 					verbo=(JSONObject) frase.get(i+1);//La siguiente pos a donde esta el se
 				}
 			}
-			//System.out.println("valor de encontrado: " + encontradoSe);//Ahora ya tenemos el verbo y tenemos que ver que esta en 3� persona
 			if(verbo.size()!=0&&verbo.get("person").equals("3")){
 				TratarJSON tratarDependencias = new TratarJSON(conexionDependencias.getContenido());
 				JSONArray hijos= tratarDependencias.tratarJSONDependencias().get(j) ;//Aqui va a hacer falta un for porque estamos pasando el texto completo.
@@ -153,30 +148,16 @@ public class Analizador {
 					JSONObject entidad=tratarEntidad.tratarJSONEntidades();
 					//En entidad tenemos que ver que nec o es null o NO PER
 					if(entidad.get("nec")==null||!entidad.get("nec").equals("PER")){
-						//						res="YES REFLEJAAAAAA";
-						//						System.out.println("caso 1:" + res);
 						reflejas.add(j);
-					}else{
-						//						res="NOPE";
-						//						System.out.println("caso 2:" + res);
 					}
-				}else{
-					//					res="NOPE";
-					//					System.out.println("caso 3:" + res);
 				}
-			}else{
-				//				res="NOPE";
-				//				System.out.println("caso 4:" + res);
 			}
 		}
 		return reflejas;
 	}
 	public String reglaPasiva(String texto) throws IOException, ParseException{
-		System.out.println("textoEnRPasiva:"+texto);
 		List<Integer> resultado=pasiva(texto);
-		System.out.println("pasiva:"+resultado);
 		List<Integer> resultadoaux=refleja(texto);
-		System.out.println("refleja:"+resultadoaux);
 		for(int i=0;i<resultadoaux.size();i++){
 			resultado.add(resultadoaux.get(i));
 		}
@@ -185,7 +166,6 @@ public class Analizador {
 		regla.setName("Regla - Forma Pasiva");
 		regla.setDescription("No se permite el uso de la forma pasiva");
 		if(!resultado.isEmpty()){
-			System.out.println("resultado no vacio");
 			regla.setPass(false);
 			String reason="El documento tiene la siguientes frases en forma pasiva: ";
 			List<String> frases= getFrases();
@@ -195,9 +175,6 @@ public class Analizador {
 			}
 			reason+=frasesPasivas.toString();
 			regla.setReason(reason);
-		}
-		else{
-			System.out.println("resultado vacio");
 		}
 		Gson gson = new Gson();
 		String jsonInString = gson.toJson(regla);
@@ -226,7 +203,6 @@ public class Analizador {
 					for(int k=0; k<listaHijosAux.size()&&!sujeto;k++){
 						elementoJSON=(JSONObject) listaHijosAux.get(k);
 						if(elementoJSON.get("function").equals("subj")){
-							System.out.println("Esto es el sujeto"+elementoJSON.get("word"));
 							sujeto=true;
 							frasesconsujeto.add(i);
 						}
@@ -265,22 +241,8 @@ public class Analizador {
 		return jsonInString;
 
 	}
-	public static void main(String[] args) throws Throwable{
-		//String texto="Se vende casa. Mi abuelo fue llevado al hospital. Los testimonios han sido recogidos.";
-		//Analizador a= new Analizador(texto);
-
-		//System.out.println(a.reglaPasiva(texto));
-//		String ruleJson=a.reglaPasiva(texto);
-//		
-////		System.out.println(ruleJson);
-//		
-//		String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
-//   	 Main pruebas = new Main ();
-//   	 String pingresponse =pruebas.reglas(null);//pruebas.comprobarPasiva(null, texto);
-////   	 String [] sol =pingresponse.split(":");
-//   	 System.out.println(pingresponse);
-////   	 System.out.println(sol[sol.length-1]);
-	}
+//	public static void main(String[] args) throws Throwable{
+//	}
 }
 
 
