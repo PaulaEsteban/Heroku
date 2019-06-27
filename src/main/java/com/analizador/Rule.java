@@ -52,5 +52,13 @@ public class Rule {
 	public void setPass(boolean pass) {
 		this.pass = pass;
 	}
+
+	@Override
+	public String toString() {
+		return "[id=" + id + ", name=" + name + ", description=" + description + ", pass=" + pass + ", reason="
+				+ reason + "]";
+	}
+	
+	
 	
 }

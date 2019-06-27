@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 
+import com.controller.Main;
 import com.google.gson.Gson;
 
 public class Analizador {
@@ -27,6 +28,7 @@ public class Analizador {
 				elemento="";
 			}
 		}
+		System.out.println("lista:"+frases);
 	}
 	public List<String> getFrases() {
 		return frases;
@@ -118,6 +120,7 @@ public class Analizador {
 		List<Integer> reflejas = new ArrayList<Integer>();
 		Conexion conexionPoS= new Conexion(texto, "tagger");
 		Conexion conexionDependencias= new Conexion(texto,"dependencies");
+		System.out.println("contenido:"+conexionPoS.getContenido());
 		TratarJSON tratarPoS = new TratarJSON(conexionPoS.getContenido());
 		//		System.out.println("pos 1: "+tratar.tratarJSONPoS().get(3));
 		int tamanyo=tratarPoS.tratarJSONPoS().size();
@@ -169,6 +172,7 @@ public class Analizador {
 		return reflejas;
 	}
 	public String reglaPasiva(String texto) throws IOException, ParseException{
+		System.out.println("textoEnRPasiva:"+texto);
 		List<Integer> resultado=pasiva(texto);
 		System.out.println("pasiva:"+resultado);
 		List<Integer> resultadoaux=refleja(texto);
@@ -261,16 +265,21 @@ public class Analizador {
 		return jsonInString;
 
 	}
-	public static void main(String[] args) throws IOException, ParseException{
-		String texto="Se vende casa. Mi abuelo fue llevado al hospital. Los testimonios han sido recogidos.";
-		Analizador a= new Analizador(texto);
+	public static void main(String[] args) throws Throwable{
+		//String texto="Se vende casa. Mi abuelo fue llevado al hospital. Los testimonios han sido recogidos.";
+		//Analizador a= new Analizador(texto);
 
 		//System.out.println(a.reglaPasiva(texto));
 //		String ruleJson=a.reglaPasiva(texto);
 //		
-//		System.out.println(ruleJson);
-		
-
+////		System.out.println(ruleJson);
+//		
+//		String texto="Se vende casa. Es alta. Mi nombre es Paula. Ayer llovió. Mi abuelo fue llevado al hospital.";
+//   	 Main pruebas = new Main ();
+//   	 String pingresponse =pruebas.reglas(null);//pruebas.comprobarPasiva(null, texto);
+////   	 String [] sol =pingresponse.split(":");
+//   	 System.out.println(pingresponse);
+////   	 System.out.println(sol[sol.length-1]);
 	}
 }
 
