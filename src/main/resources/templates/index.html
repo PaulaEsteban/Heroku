@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
+<HTML>
 
-<body>
+<HEAD>
 
-<p>&nbsp;</p>
-<div class="jumbotron text-center">
-<div class="container">
-<h1>Analizador de lectura f&aacute;cil</h1>
-<p>Este servicio proporciona la posibilidad de comprar si tu texto cumple con algunas reglas de la lectura f&aacute;cil: no pueden haber oraciones en forma pasiva y no pueden haber oraciones sin sujeto expl&iacute;cito.</p>
-</div>
-</div>
-<hr />
-<div class="row">
+<TITLE>Analizador lectura fácil</TITLE>
+
+</HEAD>
+
+<BODY>
+
+
+
+<H1>Analizador lectura fácil  </H1>
+
+<P>Este servicio proporciona la posibilidad de comprar si tu texto cumple con algunas reglas de la lectura f&aacute;cil: no pueden haber oraciones en forma pasiva y no pueden haber oraciones sin sujeto expl&iacute;cito. <BR> &#161 Si pongo esto
+
+si <STRONG>cambia </STRONG> de linea!
+
 
 <h3>&iquest;C&oacute;mo funciona el servicio?</h3>
 <p>El servicio proporciona las siguientes funcionalidades:</p>
@@ -19,9 +23,7 @@
 <li>Ver las reglas implementadas: /rules. En el caso de querer comprobar una regla determinada, tenemos que a&ntilde;adir /id_regla, con los n&uacute;meros 1 o 2 seg&uacute;n queramos ver la regla de la forma pasiva o de las frases sin sujeto expl&iacute;cito. Puedes probarlo <a href="https://analizadorlecturafacil.herokuapp.com/rules">aqu&iacute;</a>.</li>
 <li>Comprobar que el texto introducido cumple las reglas implementadas: /checkRules?texto=texto a analizar. Si queremos comprobar solo una regla en concreto debemos usar lo siguiente: /checkRules/id_regla?texto=texto a analizar. Puedes probarlo <a href="https://analizadorlecturafacil.herokuapp.com/checkRules?texto=texto%20a%20analizar.">aqu&iacute;</a>.</li>
 </ul>
-</div>
 
+</BODY>
 
-
-</body>
-</html>
+</HTML>
