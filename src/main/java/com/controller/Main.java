@@ -8,9 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,39 +38,62 @@ public class Main {
 	String index() {
 		return "index";
 	}
-
 	@Scope("request")
-	@RequestMapping("/checkRules/1")
+	@RequestMapping("/checkRules/{id_rule}")
 	@ResponseBody
-	public String comprobarPasiva(HttpServletResponse response,
-			@RequestParam(name="texto", required=true) String texto) throws Throwable {
+	public ResponseEntity<String> comprobarReglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id,
+			@RequestParam(name="texto", required=true) String texto) {
 		Analizador analyzer=new Analizador(texto);
-		return analyzer.reglaPasiva(texto);
-	}
-	@Scope("request")
-	@RequestMapping("/checkRules/2")
-	@ResponseBody
-	public String comprobarSinSujeto(HttpServletResponse response,
-			@RequestParam(name="texto", required=true) String texto) throws Throwable {
-		Analizador analyzer=new Analizador(texto);
-		return analyzer.reglaSinSujeto(texto);
+		if(id==1){
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "application/json;charset=UTF-8");
+			try {
+				return new ResponseEntity<>(analyzer.reglaPasiva(texto), headers, HttpStatus.OK);
+			} catch (IOException | ParseException e) {
+				return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
+			}	
+		}else if(id==2){
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "application/json;charset=UTF-8");
+			try {
+				return new ResponseEntity<>(analyzer.reglaSinSujeto(texto), headers, HttpStatus.OK);
+			} catch (IOException | ParseException e) {
+				return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
+			}	
+		}else{
+			String regla="No se ha encontrado la regla que solicitaba";
+			return new ResponseEntity<>(regla, HttpStatus.NOT_FOUND);
+		}
 	}
 	@Scope("request")
 	@RequestMapping("/checkRules")
 	@ResponseBody
-	public String comprobarLecturaFacil(HttpServletResponse response,
-			@RequestParam(name="texto", required=true) String texto) throws Throwable {
+	public ResponseEntity<String> comprobarLecturaFacil(HttpServletResponse response,
+			@RequestParam(name="texto", required=true) String texto) {
 		Analizador analyzer=new Analizador(texto);
-		String pasiva =analyzer.reglaPasiva(texto);
-		String sinSujeto= analyzer.reglaSinSujeto(texto);
+		String pasiva="";
+		try {
+			pasiva = analyzer.reglaPasiva(texto);
+		} catch (IOException | ParseException e) {
+			return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String sinSujeto="";
+		try {
+			sinSujeto = analyzer.reglaSinSujeto(texto);
+		} catch (IOException | ParseException e) {
+			return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		String listaJSON= "["+pasiva+","+sinSujeto+"]";
-		return listaJSON;
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json;charset=UTF-8");
+
+		return new ResponseEntity<>(listaJSON, headers, HttpStatus.OK);
+		
 	}
 	@Scope("request")
-	//@RequestMapping("/rules")
 	@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
-	public String reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
+	public ResponseEntity<String> reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
 		String regla="";
 		Gson gson = new Gson();
 		if(id==1){
@@ -83,14 +110,20 @@ public class Main {
 			sinSujeto.setDescription("Las oraciones deben tener sujeto");
 			sinSujeto.setReason(null);
 			regla = gson.toJson(sinSujeto);
+		}else{
+			regla="No se ha encontrado la regla que solicitaba";
+			return new ResponseEntity<>(regla, HttpStatus.NOT_FOUND);
 		}
-		return regla;
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json;charset=UTF-8");
+
+		return new ResponseEntity<>(regla, headers, HttpStatus.OK);
 	}
 	@Scope("request")
 	@RequestMapping("/rules")
 	//@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
-	public String reglas(HttpServletResponse response) throws IOException {
+	public String reglas(HttpServletResponse response) {
 		
 		Gson gson = new Gson();
 		String lista ="[";
