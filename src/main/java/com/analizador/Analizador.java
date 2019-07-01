@@ -210,6 +210,12 @@ public class Analizador {
 				}
 			}
 		}
+		// frases reflejas sí tienen sujeto pero es dobj  
+		List<Integer>reflejas=refleja(texto);
+		for(int i=0; i<reflejas.size();i++){
+			frasesconsujeto.add(reflejas.get(i));
+		}
+		
 		List<Integer> frasesSinSujeto=new ArrayList<Integer>();
 		for(int i=0; i<getFrases().size();i++){
 			frasesSinSujeto.add(i);
