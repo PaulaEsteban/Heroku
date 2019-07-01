@@ -39,7 +39,7 @@ public class Main {
 		return "index";
 	}
 	@Scope("request")
-	@RequestMapping("/checkRules/{id_rule}")
+	@RequestMapping("/analyzer/checkRules/{id_rule}")
 	@ResponseBody
 	public ResponseEntity<String> comprobarReglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id,
 			@RequestParam(name="texto", required=true) String texto) {
@@ -66,7 +66,7 @@ public class Main {
 		}
 	}
 	@Scope("request")
-	@RequestMapping("/checkRules")
+	@RequestMapping("/analyzer/checkRules")
 	@ResponseBody
 	public ResponseEntity<String> comprobarLecturaFacil(HttpServletResponse response,
 			@RequestParam(name="texto", required=true) String texto) {
@@ -91,7 +91,7 @@ public class Main {
 		
 	}
 	@Scope("request")
-	@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
+	@RequestMapping(method = RequestMethod.GET, value = "/analyzer/rules/{id_rule}")
 	@ResponseBody
 	public ResponseEntity<String> reglaConcreta(HttpServletResponse response,@PathVariable("id_rule") Integer id) throws IOException {
 		String regla="";
@@ -120,7 +120,7 @@ public class Main {
 		return new ResponseEntity<>(regla, headers, HttpStatus.OK);
 	}
 	@Scope("request")
-	@RequestMapping("/rules")
+	@RequestMapping("/analyzer/rules")
 	//@RequestMapping(method = RequestMethod.GET, value = "/rules/{id_rule}")
 	@ResponseBody
 	public String reglas(HttpServletResponse response) {
