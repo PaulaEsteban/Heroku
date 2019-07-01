@@ -56,7 +56,7 @@ public class Analizador {
 			}
 			verbos.add(verbosI);
 		}
-		
+
 		for(int i=0; i<verbos.size(); i++){
 			List<JSONObject> verbosI=verbos.get(i);
 			if(contadorVerbos[i]==2){//Podr�a ser una pasiva tenemos que comprabar si los verbos que hay es un verbo ser y un participio
@@ -110,7 +110,7 @@ public class Analizador {
 		}
 		return pasivas;
 	}
-	public List<Integer> refleja(String texto) throws IOException, ParseException{//El parse exception habria que hacerlo con try catch?
+	public List<Integer> reflejaSujeto(String texto) throws IOException, ParseException{//El parse exception habria que hacerlo con try catch?
 		//Para ver si una oraci�n es pasiva refleja tiene que ser de la forma se + verbo en 3�persona
 		//(con haber+ algo puede ser tambi�n y tenemos que que el haber es el que esta en 3�)
 		//y que el verbo NO es una persona (como nombre propio, como indefinido S� se puede.
@@ -155,11 +155,54 @@ public class Analizador {
 		}
 		return reflejas;
 	}
+	public List<Integer> reflejaSinSujeto(String texto) throws IOException, ParseException{//El parse exception habria que hacerlo con try catch?
+		//Para ver si una oraci�n es pasiva refleja tiene que ser de la forma se + verbo en 3�persona
+		//(con haber+ algo puede ser tambi�n y tenemos que que el haber es el que esta en 3�)
+		//y que el verbo NO es una persona (como nombre propio, como indefinido S� se puede.
+		//ej: Paula no, pero estudiantes s�).
+		//String res="";
+		List<Integer> reflejas = new ArrayList<Integer>();
+		Conexion conexionPoS= new Conexion(texto, "tagger");
+		Conexion conexionDependencias= new Conexion(texto,"dependencies");
+		TratarJSON tratarPoS = new TratarJSON(conexionPoS.getContenido());
+		int tamanyo=tratarPoS.tratarJSONPoS().size();
+		for(int j=0; j<tamanyo;j++){
+			JSONArray frase = tratarPoS.tratarJSONPoS().get(j);
+			JSONObject verbo=new JSONObject();
+			boolean encontradoSe=false;
+			for(int i=0; i<frase.size()&&!encontradoSe;i++){
+				JSONObject e= (JSONObject) frase.get(i);
+				if(e.get("lemma").equals("se")){
+					encontradoSe=true;
+					verbo=(JSONObject) frase.get(i+1);//La siguiente pos a donde esta el se
+				}
+			}
+			if(verbo.size()!=0&&verbo.get("person").equals("3")){
+				TratarJSON tratarDependencias = new TratarJSON(conexionDependencias.getContenido());
+				JSONArray hijos= tratarDependencias.tratarJSONDependencias().get(j) ;//Aqui va a hacer falta un for porque estamos pasando el texto completo.
+				String comprobar="";
+				for(int i=0; i<hijos.size();i++){
+					JSONObject palabra=(JSONObject) hijos.get(i);
+					if(palabra.get("function").equals("dobj")||palabra.get("function").equals("subj")){
+						comprobar=(String) palabra.get("word");
+					}
+				}
+				if(comprobar.equals("")){
+					reflejas.add(j);
+				}
+			}
+		}
+		return reflejas;
+	}
 	public String reglaPasiva(String texto) throws IOException, ParseException{
 		List<Integer> resultado=pasiva(texto);
-		List<Integer> resultadoaux=refleja(texto);
-		for(int i=0;i<resultadoaux.size();i++){
-			resultado.add(resultadoaux.get(i));
+		List<Integer> resultadoReflejaSujeto=reflejaSujeto(texto);
+		for(int i=0;i<resultadoReflejaSujeto.size();i++){
+			resultado.add(resultadoReflejaSujeto.get(i));
+		}
+		List<Integer> resultadoReflejaSinSujeto=reflejaSinSujeto(texto);
+		for(int i=0;i<resultadoReflejaSinSujeto.size();i++){
+			resultado.add(resultadoReflejaSinSujeto.get(i));
 		}
 		Rule regla=new Rule();
 		regla.setId(1);
@@ -210,12 +253,13 @@ public class Analizador {
 				}
 			}
 		}
-		// frases reflejas sí tienen sujeto pero es dobj  
-		List<Integer>reflejas=refleja(texto);
+		// frases reflejas sí tienen sujeto pero es dobj
+		System.out.println("sujeto");
+		List<Integer>reflejas=reflejaSujeto(texto);
 		for(int i=0; i<reflejas.size();i++){
 			frasesconsujeto.add(reflejas.get(i));
 		}
-		
+
 		List<Integer> frasesSinSujeto=new ArrayList<Integer>();
 		for(int i=0; i<getFrases().size();i++){
 			frasesSinSujeto.add(i);
@@ -247,8 +291,8 @@ public class Analizador {
 		return jsonInString;
 
 	}
-//	public static void main(String[] args) throws Throwable{
-//	}
+	//	public static void main(String[] args) throws Throwable{
+	//	}
 }
 
 
