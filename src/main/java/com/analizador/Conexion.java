@@ -21,6 +21,7 @@ public class Conexion {
 	private String out = "json";
 	private String user = "paulaesteban";
 	private String pwd = "TFGPaula2019!";
+	private boolean activo=true;//Si la conexion va bien no se cambiará, sino se pondra a false y se subirá hasta el servicio para dar un error interno 500
 
 	public Conexion(String texto, String servicio) throws IOException {
 		this.texto=texto;
@@ -44,10 +45,20 @@ public class Conexion {
 
 		// handle connection errors
 		if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-			System.out.println(response.getStatusLine() + " - " + content);
-			System.exit(1);
-		}
+			//System.out.println(response.getStatusLine() + " - " + content);
+			//System.exit(1);
+			activo=false;
+		}else{
 		this.setContenido(content);
+		}
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 
 	public String getContenido() {

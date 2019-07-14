@@ -34,6 +34,11 @@ public class Analizador {
 	}
 	public List<Integer> pasiva(String texto) throws IOException, ParseException{
 		Conexion contagger= new Conexion(texto,"tagger");
+		if(!contagger.isActivo()){
+			List<Integer> error=new ArrayList<Integer>();
+			error.add(-1);
+			return error;
+		}
 		TratarJSON tratar=new TratarJSON(contagger.getContenido());
 		int[] contadorVerbos= new int[tratar.tratarJSONPoS().size()];
 		List<Integer> pasivas = new ArrayList<Integer>();
@@ -118,7 +123,17 @@ public class Analizador {
 		//String res="";
 		List<Integer> reflejas = new ArrayList<Integer>();
 		Conexion conexionPoS= new Conexion(texto, "tagger");
+		if(!conexionPoS.isActivo()){
+			List<Integer> error=new ArrayList<Integer>();
+			error.add(-1);
+			return error;
+		}
 		Conexion conexionDependencias= new Conexion(texto,"dependencies");
+		if(!conexionDependencias.isActivo()){
+			List<Integer> error=new ArrayList<Integer>();
+			error.add(-1);
+			return error;
+		}
 		TratarJSON tratarPoS = new TratarJSON(conexionPoS.getContenido());
 		int tamanyo=tratarPoS.tratarJSONPoS().size();
 		for(int j=0; j<tamanyo;j++){
@@ -144,6 +159,11 @@ public class Analizador {
 				}
 				if(!comprobar.equals("")){
 					Conexion conexionEntidad=new Conexion(comprobar, "entities");//En mar�a tiene que ir comprobar
+					if(!conexionEntidad.isActivo()){
+						List<Integer> error=new ArrayList<Integer>();
+						error.add(-1);
+						return error;
+					}
 					TratarJSON tratarEntidad = new TratarJSON(conexionEntidad.getContenido());
 					JSONObject entidad=tratarEntidad.tratarJSONEntidades();
 					//En entidad tenemos que ver que nec o es null o NO PER
@@ -163,7 +183,17 @@ public class Analizador {
 		//String res="";
 		List<Integer> reflejas = new ArrayList<Integer>();
 		Conexion conexionPoS= new Conexion(texto, "tagger");
+		if(!conexionPoS.isActivo()){
+			List<Integer> error=new ArrayList<Integer>();
+			error.add(-1);
+			return error;
+		}
 		Conexion conexionDependencias= new Conexion(texto,"dependencies");
+		if(!conexionDependencias.isActivo()){
+			List<Integer> error=new ArrayList<Integer>();
+			error.add(-1);
+			return error;
+		}
 		TratarJSON tratarPoS = new TratarJSON(conexionPoS.getContenido());
 		int tamanyo=tratarPoS.tratarJSONPoS().size();
 		for(int j=0; j<tamanyo;j++){
@@ -204,6 +234,9 @@ public class Analizador {
 		for(int i=0;i<resultadoReflejaSinSujeto.size();i++){
 			resultado.add(resultadoReflejaSinSujeto.get(i));
 		}
+		if(resultado.contains(-1)){
+			return "Se ha producido un error en el proceso de validación";
+		}
 		Rule regla=new Rule();
 		regla.setId(1);
 		regla.setName("Regla - Forma Pasiva");
@@ -225,6 +258,9 @@ public class Analizador {
 	}
 	public String reglaSinSujeto(String texto) throws IOException, ParseException{
 		Conexion conexion= new Conexion(texto,"dependencies");
+		if(!conexion.isActivo()){
+			return "Se ha producido un error en el proceso de validación";
+		}
 		TratarJSON tratar = new TratarJSON(conexion.getContenido());
 		List<JSONArray> listaHijos= tratar.tratarJSONDependencias();
 		JSONArray hijoI = new JSONArray();

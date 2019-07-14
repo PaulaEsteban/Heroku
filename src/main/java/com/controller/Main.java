@@ -44,6 +44,9 @@ public class Main {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", "application/json;charset=UTF-8");
 			try {
+				if(analyzer.reglaPasiva(texto).equals("Se ha producido un error en el proceso de validación")){
+					return new ResponseEntity<>(analyzer.reglaPasiva(texto), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
 				return new ResponseEntity<>(analyzer.reglaPasiva(texto), headers, HttpStatus.OK);
 			} catch (IOException | ParseException e) {
 				return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,6 +55,9 @@ public class Main {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", "application/json;charset=UTF-8");
 			try {
+				if(analyzer.reglaSinSujeto(texto).equals("Se ha producido un error en el proceso de validación")){
+					return new ResponseEntity<>(analyzer.reglaPasiva(texto), headers, HttpStatus.INTERNAL_SERVER_ERROR);
+				}
 				return new ResponseEntity<>(analyzer.reglaSinSujeto(texto), headers, HttpStatus.OK);
 			} catch (IOException | ParseException e) {
 				return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -77,6 +83,9 @@ public class Main {
 		try {
 			sinSujeto = analyzer.reglaSinSujeto(texto);
 		} catch (IOException | ParseException e) {
+			return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if(pasiva.equals("Se ha producido un error en el proceso de validación")||sinSujeto.equals("Se ha producido un error en el proceso de validación")){
 			return new ResponseEntity<>("Se ha producido un error en el proceso de validación", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		String listaJSON= "["+pasiva+","+sinSujeto+"]";
