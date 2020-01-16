@@ -35,7 +35,7 @@ public class Analizador {
 		texto=texto.replace("001N","Ñ");
 		texto=texto.replace("001!","¡");
 		texto=texto.replace("001?","¿");
-		
+		System.out.println("Texto transformado:"+texto);
 		frases= new ArrayList<String>();
 		String elemento="";
 		for (int i = 0; i <texto.length (); i++) {
