@@ -19,22 +19,22 @@ public class Analizador {
 	public Analizador(String texto){
 		//Tenemos que cambiar estos símbolos porque cuando se llama desde la API de Raul vienen asi al hacer la peticion
 		texto=texto.replace("%20", " ");
-		texto=texto.replace("\'a", "á");
-		texto=texto.replace("\'e","é");
-		texto=texto.replace("\'i","í");
-		texto=texto.replace("\'o","ó");
-		texto=texto.replace("\'u","ú");
-		texto=texto.replace("\'A","Á");
-		texto=texto.replace("\'E","É");
-		texto=texto.replace("\'I","Í");
-		texto=texto.replace("\'O", "Ó");
-		texto=texto.replace("\'U","Ú");
-		texto=texto.replace("\"u","ü");
-		texto=texto.replace("\"U","Ü");
-		texto=texto.replace("\"n","ñ");
-		texto=texto.replace("\"N","Ñ");
-		texto=texto.replace("\'!","¡");
-		texto=texto.replace("\'?","¿");
+		texto=texto.replace("001a", "á");
+		texto=texto.replace("001e","é");
+		texto=texto.replace("001i","í");
+		texto=texto.replace("001o","ó");
+		texto=texto.replace("001u","ú");
+		texto=texto.replace("001A","Á");
+		texto=texto.replace("001E","É");
+		texto=texto.replace("001I","Í");
+		texto=texto.replace("001O", "Ó");
+		texto=texto.replace("001U","Ú");
+		texto=texto.replace("001u","ü");
+		texto=texto.replace("001U","Ü");
+		texto=texto.replace("001n","ñ");
+		texto=texto.replace("001N","Ñ");
+		texto=texto.replace("001!","¡");
+		texto=texto.replace("001?","¿");
 		
 		frases= new ArrayList<String>();
 		String elemento="";
