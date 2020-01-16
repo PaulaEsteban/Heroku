@@ -17,6 +17,25 @@ import com.google.gson.Gson;
 public class Analizador {
 	private List<String> frases;
 	public Analizador(String texto){
+		//Tenemos que cambiar estos símbolos porque cuando se llama desde la API de Raul vienen asi al hacer la peticion
+		texto=texto.replace("%20", " ");
+		texto=texto.replace("\'a", "á");
+		texto=texto.replace("\'e","é");
+		texto=texto.replace("\'i","í");
+		texto=texto.replace("\'o","ó");
+		texto=texto.replace("\'u","ú");
+		texto=texto.replace("\'A","Á");
+		texto=texto.replace("\'E","É");
+		texto=texto.replace("\'I","Í");
+		texto=texto.replace("\'O", "Ó");
+		texto=texto.replace("\'U","Ú");
+		texto=texto.replace("\"u","ü");
+		texto=texto.replace("\"U","Ü");
+		texto=texto.replace("\"n","ñ");
+		texto=texto.replace("\"N","Ñ");
+		texto=texto.replace("\'!","¡");
+		texto=texto.replace("\'?","¿");
+		
 		frases= new ArrayList<String>();
 		String elemento="";
 		for (int i = 0; i <texto.length (); i++) {
