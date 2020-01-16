@@ -18,7 +18,7 @@ public class Analizador {
 	private List<String> frases;
 	public Analizador(String texto){
 		//Tenemos que cambiar estos símbolos porque cuando se llama desde la API de Raul vienen asi al hacer la peticion
-		texto=texto.replace("%20", " ");
+		//texto=texto.replace("%20", " ");
 		texto=texto.replace("001a", "á");
 		texto=texto.replace("001e","é");
 		texto=texto.replace("001i","í");
