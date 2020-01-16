@@ -47,6 +47,7 @@ public class Analizador {
 				elemento="";
 			}
 		}
+		System.out.println(frases);
 	}
 	public List<String> getFrases() {
 		return frases;
