@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 public class Analizador {
 	private List<String> frases;
+	private String texto;
 	public Analizador(String texto){
 		//Tenemos que cambiar estos símbolos porque cuando se llama desde la API de Raul vienen asi al hacer la peticion
 		//texto=texto.replace("%20", " ");
@@ -35,19 +36,26 @@ public class Analizador {
 		texto=texto.replace("001N","Ñ");
 		texto=texto.replace("001!","¡");
 		texto=texto.replace("001?","¿");
-		System.out.println("Texto transformado:"+texto);
+		this.texto=texto;
+		System.out.println("Texto transformado:"+this.texto);
 		frases= new ArrayList<String>();
 		String elemento="";
-		for (int i = 0; i <texto.length (); i++) {
-			if(texto.charAt(i)!='.'){
-				elemento+=texto.charAt(i);
+		for (int i = 0; i <this.texto.length (); i++) {
+			if(this.texto.charAt(i)!='.'){
+				elemento+=this.texto.charAt(i);
 			}else{
-				elemento+=texto.charAt(i);
+				elemento+=this.texto.charAt(i);
 				frases.add(elemento);
 				elemento="";
 			}
 		}
 		System.out.println(frases);
+	}
+	public String getTexto() {
+		return texto;
+	}
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 	public List<String> getFrases() {
 		return frases;
