@@ -30,8 +30,8 @@ public class Analizador {
 		texto=texto.replace("001I","Í");
 		texto=texto.replace("001O", "Ó");
 		texto=texto.replace("001U","Ú");
-		texto=texto.replace("001u","ü");
-		texto=texto.replace("001U","Ü");
+		texto=texto.replace("011u","ü");
+		texto=texto.replace("011U","Ü");
 		texto=texto.replace("001n","ñ");
 		texto=texto.replace("001N","Ñ");
 		texto=texto.replace("001!","¡");
